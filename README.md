@@ -1,6 +1,6 @@
 # SPH.lua
 
-Lua physics handling library for axis-aligned rectangles. It was made for simple and fast prototyping and even simple game creations. It was made based on ![this towerfall developer's post](https://mattmakesgames.tumblr.com/post/127890619821/towerfall-physics). This library was made focusing in LÖVE framework, so the examples will be based on it.
+Lua physics handling library for axis-aligned rectangles. It was made for simple and fast prototyping and even simple game creations. It was made based on [this towerfall developer's post](https://mattmakesgames.tumblr.com/post/127890619821/towerfall-physics). This library was made focusing in LÖVE framework, so the examples will be based on it.
 
 It automagically handle collisions and callbacks for objects overlapping accordingly to your needings.
 
