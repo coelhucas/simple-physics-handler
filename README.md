@@ -1,6 +1,6 @@
 # SPH.lua
 
-Lua physics handling library for axis-aligned rectangles. It was made for simple and fast prototyping and even simple game creations. It was made based on [this towarfall developer's post](!https://mattmakesgames.tumblr.com/post/127890619821/towerfall-physics). This library was made focusing in LÖVE framework, so the examples will be based on it.
+Lua physics handling library for axis-aligned rectangles. It was made for simple and fast prototyping and even simple game creations. It was made based on ![this towerfall developer's post](https://mattmakesgames.tumblr.com/post/127890619821/towerfall-physics). This library was made focusing in LÖVE framework, so the examples will be based on it.
 
 It automagically handle collisions and callbacks for objects overlapping accordingly to your needings.
 
@@ -36,7 +36,7 @@ end
 ```
 
 Running the snippet the result will be:
-[](!http://www.giphy.com/gifs/gicmo9lfTmpNQZ1aPU)
+![](http://www.giphy.com/gifs/gicmo9lfTmpNQZ1aPU)
 And in your console you should see `collect the item` printed.
 As the reference post I linked above, it also handles Actor squish by default as destroying it. It's a separated function from `destroy` so you can override it as you want.
 
@@ -46,9 +46,9 @@ As the reference post I linked above, it also handles Actor squish by default as
 actor = sph.newActor(x, y, width, height, tags = { 'projectile', 'hitbox' }) -- default tag[1] = 'actor'
 solid = sph.newSolid(x, y, width, height, tags = { 'elevator' }) -- default tag[1] = 'solid'
 
-actor:setLinearVelocity({ x = 1, y = 2 }, onCollide = callback function called when collision is triggered)
--- moves the actor
--- onCollide will be called both for solids and actors, returning the trigger (for actors) or collider object
+actor:setLinearVelocity({ x = 1, y = 2 }, onCollide)
+--[[ moves the actor
+onCollide will be called when collided with both solids and actors, returning the trigger (for actors) or collider object ]]--
 
 actor:destroy() -- destroys the actor
 solid:move(x, y) -- moves the solid
