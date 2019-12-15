@@ -12,8 +12,7 @@ local sph = require 'sph'
 function love.load()
   player = sph.newActor(64, 32, 32, 32, { 'player' })
   collectible = sph.newActor(256, 32, 8, 8, { 'collectible'})
-  wall = sph.newSolid(0, 0, 16, 640)
-  collected = false
+  collected = false -- just to stop moving the 'player' after the collision trigger
 end
 
 function handleCollision(collider)
@@ -36,7 +35,9 @@ end
 ```
 
 Running the snippet the result will be:
-![](http://www.giphy.com/gifs/gicmo9lfTmpNQZ1aPU)
+
+![](sample.gif)
+
 And in your console you should see `collect the item` printed.
 As the reference post I linked above, it also handles Actor squish by default as destroying it. It's a separated function from `destroy` so you can override it as you want.
 
