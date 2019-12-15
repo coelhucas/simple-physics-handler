@@ -1,8 +1,8 @@
 # SPH.lua
 
-Lua physics handling library for axis-aligned rectangles. It was made for simple and fast prototyping and even simple game creations. It was made based on [this towerfall developer's post](https://mattmakesgames.tumblr.com/post/127890619821/towerfall-physics). This library was made focusing in LÖVE framework, so the examples will be based on it.
+Lua physics handling library for axis-aligned bounding boxes. It was made for simple and fast prototyping in personal use and even simple game creations. It was made based on [this towerfall developer's post](https://mattmakesgames.tumblr.com/post/127890619821/towerfall-physics). This library was created on top of the LÖVE framework, so the examples will be based on it.
 
-It automagically handle collisions and callbacks for objects overlapping accordingly to your needings.
+It automagically handle collisions and callbacks for objects overlapping accordingly to your needs.
 
 ## Example
 
@@ -47,12 +47,12 @@ As the reference post I linked above, it also handles Actor squish by default as
 actor = sph.newActor(x, y, width, height, tags = { 'projectile', 'hitbox' }) -- default tag[1] = 'actor'
 solid = sph.newSolid(x, y, width, height, tags = { 'elevator' }) -- default tag[1] = 'solid'
 
-actor:setLinearVelocity({ x = 1, y = 2 }, onCollide)
+actor:setLinearVelocity(vector = { x = 1, y = 2 }, onCollide)
 --[[ moves the actor
 onCollide will be called when collided with both solids and actors, returning the trigger (for actors) or collider object ]]--
 
 actor:destroy() -- destroys the actor
 solid:move(x, y) -- moves the solid
 
-sph.draw(alpha) -- draws every object on screen with the desired alpha (0 - 1)
+sph.draw(alpha) -- draws every SPH object on screen with the desired alpha (0 - 1)
 ```
