@@ -370,6 +370,8 @@ function Solid:draw(alpha)
     love.graphics.setColor(1, 0.2, 0.2, alpha ~= nil and alpha or 1)
     love.graphics.rectangle('line', currentSolid.x, currentSolid.y, currentSolid.w, currentSolid.h)
   end
+  -- Reset color
+  love.graphics.setColor(1, 1, 1, 1)
 end
 
 return SPH
