@@ -52,7 +52,7 @@ actor:setLinearVelocity(vector = { x = 1, y = 2 }, onCollide)
 onCollide will be called when collided with both solids and actors, returning the trigger (for actors) or collider object ]]--
 
 actor:destroy() -- destroys the actor
-solid:move(x, y) -- moves the solid
+solid:setLinearVelocity(x, y) -- moves the solid, but instead of receiving a vector table, x and y are received as separated parameters
 
 sph.draw(alpha) -- draws every SPH object on screen with the desired alpha (0 - 1)
 ```

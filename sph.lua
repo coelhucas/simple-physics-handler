@@ -286,7 +286,7 @@ function Solid:isOverlapping(actor)
           self.y + self.h > actor.y)
 end
 
-function Solid:move(x, y)
+function Solid:setLinearVelocity(x, y)
   self.xRemainder = self.xRemainder + x
   self.yRemainder = self.yRemainder + y
   moveX = math.round(self.xRemainder)
