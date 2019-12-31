@@ -113,9 +113,9 @@ function Actor:collideAt(solids, vector)
 
     if (solid ~= self) then
       hasCollision = (self.x + vector.x < x + w and
-              self.x + self.w + (self.w / 2) + vector.x > x and
+              self.x + self.w + vector.x > x and
               self.y + vector.y < y + h and
-              self.y + self.h + (self.h / 2) + vector.y > y)
+              self.y + self.h + vector.y > y)
     end
 
     if (not solid.collidable) then
@@ -144,9 +144,9 @@ function Actor:triggerAt(actors, vector)
 
     if (actor ~= self) then
       hasCollision = (self.x + vector.x < x + w and
-              self.x + self.w + (self.w / 2) + vector.x > x and
+              self.x + self.w + vector.x > x and
               self.y + vector.y < y + h and
-              self.y + self.h + (self.h / 2) + vector.y > y)
+              self.y + self.h + vector.y > y)
     end
 
     if (hasCollision) then
@@ -227,7 +227,9 @@ end
 function Actor:squish()
   -- The squish is a separated function equals to destroy in case you want to override it
   for key, actor in ipairs(actors) do
+    --print(self)
     if (actor == self) then
+      print('iole irro')
       table.remove(actors, key)
       break
     end
@@ -245,7 +247,7 @@ end
 function Actor:draw(alpha)
   for k, actor in ipairs(actors) do
     love.graphics.setColor(0.2, 1, 0.2, alpha ~= nil and alpha or 1)
-    love.graphics.rectangle('line', actor.x - actor.w / 2, actor.y - actor.h / 2, actor.w, actor.h)
+    love.graphics.rectangle('line', actor.x, actor.y, actor.w, actor.h)
   end
 end
 
@@ -279,9 +281,9 @@ end
 
 function Solid:isOverlapping(actor)
   return (self.x < actor.x + actor.w and
-          self.x + self.w + (self.w / 2) > actor.x and
+          self.x + self.w > actor.x and
           self.y < actor.y + actor.h and
-          self.y + self.h + (self.h / 2) > actor.y)
+          self.y + self.h > actor.y)
 end
 
 function Solid:setLinearVelocity(x, y)
@@ -366,7 +368,7 @@ end
 function Solid:draw(alpha)
   for k, currentSolid in ipairs(solids) do
     love.graphics.setColor(1, 0.2, 0.2, alpha ~= nil and alpha or 1)
-    love.graphics.rectangle('line', currentSolid.x - currentSolid.w/2, currentSolid.y - currentSolid.h/2, currentSolid.w, currentSolid.h)
+    love.graphics.rectangle('line', currentSolid.x, currentSolid.y, currentSolid.w, currentSolid.h)
   end
   -- Reset color
   love.graphics.setColor(1, 1, 1, 1)

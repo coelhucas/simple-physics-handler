@@ -54,6 +54,5 @@ onCollide will be called when collided with both solids and actors, returning th
 actor:destroy() -- destroys the actor
 solid:setLinearVelocity(x, y) -- moves the solid, but instead of receiving a vector table, x and y are received as separated parameters
 
--- OBS.: The colliders are created using the desired x and y coordinates as it's middle point.
 sph.draw(alpha) -- draws every SPH object on screen with the desired alpha (0 - 1)
 ```
