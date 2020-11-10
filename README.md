@@ -1,6 +1,6 @@
 # SPH.lua
 
-Lua physics handling library for axis-aligned bounding boxes. It was made for simple and fast prototyping in personal use and even simple game creations. It was made based on [this towerfall developer's post](https://mattmakesgames.tumblr.com/post/127890619821/towerfall-physics). This library was created on top of the LÖVE framework, so the examples will be based on it.
+Lua physics handling library for axis-aligned bounding boxes. It was made for simple and fast prototyping in personal use and even simple game creations. It was made based on [this towerfall developer's post](https://maddythorson.medium.com/celeste-and-towerfall-physics-d24bd2ae0fc5). This library was created on top of the LÖVE framework, so the examples will be based on it.
 
 It automagically handle collisions and callbacks for objects overlapping accordingly to your needs.
 
