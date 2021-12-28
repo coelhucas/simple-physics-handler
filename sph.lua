@@ -227,9 +227,7 @@ end
 function Actor:squish()
   -- The squish is a separated function equals to destroy in case you want to override it
   for key, actor in ipairs(actors) do
-    --print(self)
     if (actor == self) then
-      print('iole irro')
       table.remove(actors, key)
       break
     end
