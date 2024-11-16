@@ -18,7 +18,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
-]]--
+]] --
 
 local SPH = {}
 local Actor = {}
@@ -39,20 +39,20 @@ function math.sign(n)
   return n > 0 and 1 or n < 0 and -1 or 0
 end
 
-local function hasValue (tab, val)
-    for index, value in ipairs(tab) do
-        if value == val then
-            return true
-        end
+local function hasValue(tab, val)
+  for index, value in ipairs(tab) do
+    if value == val then
+      return true
     end
-    return false
+  end
+  return false
 end
 
 -- SPH functions
 
 function SPH.newActor(x, y, w, h, tags)
   actorObj = Actor.new(x, y, w, h, tags)
-    -- Register our new actor
+  -- Register our new actor
   actors[table.getn(actors) + 1] = actorObj
   return actorObj
 end
@@ -85,7 +85,8 @@ function Actor.new(x, y, width, height, tags)
   actor.h = height
   actor.xRemainder = 0
   actor.yRemainder = 0
-  actor.tags = {'actor'}
+  actor.type = 'actor'
+  actor.tags = {}
 
   if (tags ~= nil) then
     for k, tag in ipairs(tags) do
@@ -113,9 +114,9 @@ function Actor:collideAt(solids, vector)
 
     if (solid ~= self) then
       hasCollision = (self.x + vector.x < x + w and
-              self.x + self.w + vector.x > x and
-              self.y + vector.y < y + h and
-              self.y + self.h + vector.y > y)
+        self.x + self.w + vector.x > x and
+        self.y + vector.y < y + h and
+        self.y + self.h + vector.y > y)
     end
 
     if (not solid.collidable) then
@@ -124,6 +125,15 @@ function Actor:collideAt(solids, vector)
 
     if (hasCollision) then
       return true, solid
+    end
+  end
+  return false
+end
+
+function Actor:hasTag(tag)
+  for _, value in pairs(self.tags) do
+    if value == tag then
+      return true
     end
   end
   return false
@@ -144,9 +154,9 @@ function Actor:triggerAt(actors, vector)
 
     if (actor ~= self) then
       hasCollision = (self.x + vector.x < x + w and
-              self.x + self.w + vector.x > x and
-              self.y + vector.y < y + h and
-              self.y + self.h + vector.y > y)
+        self.x + self.w + vector.x > x and
+        self.y + vector.y < y + h and
+        self.y + self.h + vector.y > y)
     end
 
     if (hasCollision) then
@@ -156,18 +166,18 @@ function Actor:triggerAt(actors, vector)
   return false
 end
 
-function Actor:moveX (amount, onCollide)
+function Actor:moveX(amount, onCollide)
   self.xRemainder = self.xRemainder + amount
   move = math.round(self.xRemainder)
 
   if (move ~= 0) then
-    self.xRemainder  = self.xRemainder - move
-    sign = math.sign(move)
+    self.xRemainder = self.xRemainder - move
+    sign            = math.sign(move)
 
     while (move ~= 0) do
       collisionVector = { x = sign, y = 0 }
       triggerAt, trigger = self:triggerAt(actors, collisionVector)
-      if (triggerAt and onCollide ~= self.squish) then
+      if (triggerAt and onCollide ~= self.squish and onCollide) then
         onCollide(trigger)
       end
 
@@ -177,7 +187,7 @@ function Actor:moveX (amount, onCollide)
         move = move - sign
       else
         if (onCollide ~= nil) then
-          onCollide(self, collider)
+          onCollide(collider)
         end
         break
       end
@@ -185,7 +195,7 @@ function Actor:moveX (amount, onCollide)
   end
 end
 
-function Actor:moveY (amount, onCollide)
+function Actor:moveY(amount, onCollide)
   self.yRemainder = self.yRemainder + amount
   move = math.round(self.yRemainder)
 
@@ -196,7 +206,7 @@ function Actor:moveY (amount, onCollide)
     while (move ~= 0) do
       collisionVector = { x = 0, y = sign }
       triggerAt, trigger = self:triggerAt(actors, collisionVector)
-      if (triggerAt and onCollide ~= self.squish) then
+      if (triggerAt and onCollide ~= self.squish and onCollide) then
         onCollide(trigger)
       end
 
@@ -214,7 +224,7 @@ function Actor:moveY (amount, onCollide)
   end
 end
 
-function Actor:setLinearVelocity (vector, onCollide)
+function Actor:setLinearVelocity(vector, onCollide)
   if (vector.x ~= nil) then
     self:moveX(vector.x, onCollide, sollids)
   end
@@ -263,7 +273,8 @@ function Solid.new(x, y, width, height, tags)
   solid.h = height
   solid.xRemainder = 0
   solid.yRemainder = 0
-  solid.tags = {'solid'}
+  solid.type = 'solid'
+  solid.tags = {}
   solid.collidable = true
 
   if (tags ~= nil) then
@@ -277,11 +288,20 @@ function Solid.new(x, y, width, height, tags)
   return solid
 end
 
+function Solid:hasTag(tag)
+  for _, value in pairs(self.tags) do
+    if value == tag then
+      return true
+    end
+  end
+  return false
+end
+
 function Solid:isOverlapping(actor)
   return (self.x < actor.x + actor.w and
-          self.x + self.w > actor.x and
-          self.y < actor.y + actor.h and
-          self.y + self.h > actor.y)
+    self.x + self.w > actor.x and
+    self.y < actor.y + actor.h and
+    self.y + self.h > actor.y)
 end
 
 function Solid:setLinearVelocity(x, y)
